@@ -35,14 +35,6 @@ st.markdown(
     .stApp { background: #fbfcf9; }
     .block-container { max-width: 1180px; padding-top: 2.2rem; }
     h1, h2, h3 { color: var(--ink); letter-spacing: -0.025em; }
-    .eyebrow {
-        color: #527064;
-        font-size: 0.78rem;
-        font-weight: 700;
-        letter-spacing: 0.12em;
-        margin-bottom: 0.6rem;
-        text-transform: uppercase;
-    }
     .hero-copy {
         color: #40564e;
         font-size: 1.15rem;
@@ -165,9 +157,6 @@ def interpretation(probability: float) -> tuple[str, str]:
 
 hero, snapshot = st.columns([1.45, 1], gap="large")
 with hero:
-    st.markdown(
-        '<div class="eyebrow">Independent 48-hour research sprint</div>', unsafe_allow_html=True
-    )
     st.title("GutSignal Lab")
     st.markdown(
         '<div class="hero-copy">Can a small, reproducible baseline detect expert-annotated '
