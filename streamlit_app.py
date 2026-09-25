@@ -105,7 +105,7 @@ def load_metrics() -> dict:
 
 @st.cache_data
 def load_demo_manifest() -> dict:
-    return json.loads((DEMO_SAMPLES_PATH / "manifest.json").read_text())
+    return json.loads((DEMO_SAMPLES_PATH / "manifest.json").read_text(encoding="utf-8"))
 
 
 def waveform_chart(signal: np.ndarray, sample_rate: int) -> go.Figure:
