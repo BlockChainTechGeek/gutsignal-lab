@@ -47,5 +47,20 @@
     ],
     "threshold": 0.5
   },
+  "uncertainty_band_evaluation": {
+    "lower_bound": 0.35,
+    "upper_bound": 0.65,
+    "recordings": 1606,
+    "uncertain_recordings": 217,
+    "uncertain_fraction": 0.13511830635118308,
+    "decision_coverage": 0.864881693648817,
+    "decided_accuracy": 0.8689704823614111,
+    "decided_balanced_accuracy": 0.6852945340208029,
+    "decided_precision": 0.8903122497998399,
+    "decided_recall": 0.9611063094209161,
+    "errors_inside_band": 94,
+    "error_capture_rate": 0.34057971014492755,
+    "forced_error_rate_inside_band": 0.43317972350230416
+  },
   "interpretation": "The grouped estimate is the headline result. The random-recording estimate is included only to make the generalisation gap visible; recordings from one participant should not appear in both training and evaluation folds."
 }
