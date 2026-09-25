@@ -42,6 +42,12 @@ precision, 0.825 ROC-AUC, and 0.896 F1. Random-recording validation is stronger,
 so the project treats the grouped result as the more defensible estimate and
 makes the generalisation gap visible.
 
+The interface also withholds a confident result for scores between 35% and 65%.
+In grouped cross-validation, this marks 217 of 1,606 recordings as uncertain and
+captures 94 of the 276 forced-decision errors. Overall accuracy on the remaining
+recordings rises from 82.8% to 86.9%. This internal result supports further
+testing of abstention; it is not evidence of clinical safety.
+
 ## What the prototype does
 
 The app takes a short WAV file, prepares the audio, extracts a compact set of
