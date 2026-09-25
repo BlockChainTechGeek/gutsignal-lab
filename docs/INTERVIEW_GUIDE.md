@@ -35,7 +35,7 @@ unnecessary sensitive information.
 3. Imagine a small abdominal wearable could passively show patterns involving
    meals, sleep, activity, and digestive sounds. What would you want it to tell
    you first?
-4. What would make you trust—or distrust—an insight from it?
+4. What would make you trust or distrust an insight from it?
 5. How much explanation would you want beneath a score or alert?
 6. If the system were uncertain, how should it communicate that?
 7. What would make wearing a patch worthwhile for several days?
