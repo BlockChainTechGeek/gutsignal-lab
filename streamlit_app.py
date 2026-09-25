@@ -159,9 +159,8 @@ hero, snapshot = st.columns([1.45, 1], gap="large")
 with hero:
     st.title("GutSignal Lab")
     st.markdown(
-        '<div class="hero-copy">Can a small, reproducible baseline detect expert-annotated '
-        "bowel-sound events from public abdominal audio—and communicate uncertainty without "
-        "turning a research signal into a health claim?</div>",
+        '<div class="hero-copy">Can a simple model identify bowel-sound events in public '
+        "abdominal audio and explain when it is uncertain?</div>",
         unsafe_allow_html=True,
     )
 with snapshot:
@@ -187,12 +186,11 @@ demo_tab, evidence_tab, method_tab, limits_tab = st.tabs(
 )
 
 with demo_tab:
-    st.subheader("From a short recording to interpretable model evidence")
+    st.subheader("See how the model responds to a short recording")
     st.markdown(
-        '<div class="section-note"><strong>What to look for:</strong> choose a synthetic clip, listen '
-        "to it, then inspect how the model responds. The waveform and "
-        "spectrogram show the signal the baseline actually received. These generated clips demonstrate "
-        "the interface; their scores are not model-evaluation results.</div>",
+        '<div class="section-note"><strong>What to do:</strong> choose one of the generated clips, '
+        "listen to it, and compare the score with the waveform and spectrogram. These examples show "
+        "how the app works. Their scores do not measure the model's accuracy.</div>",
         unsafe_allow_html=True,
     )
     mode = st.radio(
@@ -246,9 +244,9 @@ with evidence_tab:
 
     st.subheader("The less flattering result is the headline result")
     st.write(
-        "Recordings associated with the same inferred participant group stay together during "
-        "validation. This is a harder test than randomly mixing clips and is more relevant to the "
-        "question of whether the model might generalise beyond familiar recordings."
+        "Recordings from the same inferred participant group stay together during validation. "
+        "This is harder than randomly mixing clips and gives a more realistic test of whether "
+        "the model might work for people it has not seen before."
     )
 
     columns = st.columns(4)
@@ -289,8 +287,8 @@ with evidence_tab:
         width="stretch",
     )
     st.warning(
-        "The random-recording score is higher. That gap is not hidden: strong clip-level results "
-        "do not automatically transfer to unseen people, sensors, or homes."
+        "Randomly mixing recordings produced higher scores, but that easier test can overestimate "
+        "real-world performance. The participant-grouped result above is the more cautious estimate."
     )
     st.image(EVIDENCE_IMAGE_PATH, width="stretch")
 
