@@ -202,7 +202,8 @@ with demo_tab:
     st.markdown(
         '<div class="section-note"><strong>What to look for:</strong> choose a synthetic clip, listen '
         "to it, then inspect how the model responds. The waveform and "
-        "spectrogram show the signal the baseline actually received.</div>",
+        "spectrogram show the signal the baseline actually received. These generated clips demonstrate "
+        "the interface; their scores are not model-evaluation results.</div>",
         unsafe_allow_html=True,
     )
     mode = st.radio(
@@ -238,7 +239,7 @@ with demo_tab:
         left.metric("Model evidence", f"{probability:.1%}")
         right.markdown(f"### {label}\n{explanation}")
         if example_label is not None:
-            st.caption(f"Illustrative example label: **{example_label}**")
+            st.caption(f"Synthetic pattern description: **{example_label}**")
 
         st.plotly_chart(waveform_chart(signal, sample_rate), width="stretch")
         st.plotly_chart(spectrogram_chart(signal, sample_rate), width="stretch")
