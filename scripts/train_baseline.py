@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import StratifiedGroupKFold, StratifiedKFold, cross_val_predict
 
-from gutsignal.modeling import build_baseline, probability_metrics
+from gutsignal.modeling import build_baseline, probability_metrics, uncertainty_band_metrics
 
 METADATA_COLUMNS = {"recording_id", "participant_id", "has_event", "event_count"}
 
@@ -61,6 +61,7 @@ def main() -> None:
         },
         "participant_grouped_cross_validation": probability_metrics(target, grouped_probability),
         "random_recording_cross_validation": probability_metrics(target, random_probability),
+        "uncertainty_band_evaluation": uncertainty_band_metrics(target, grouped_probability),
         "interpretation": (
             "The grouped estimate is the headline result. The random-recording estimate is included "
             "only to make the generalisation gap visible; recordings from one participant should not "
