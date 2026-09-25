@@ -42,10 +42,22 @@ precision, 0.825 ROC-AUC, and 0.896 F1. Random-recording validation is stronger,
 so the project treats the grouped result as the more defensible estimate and
 makes the generalisation gap visible.
 
+## What the prototype does
+
+The app takes a short WAV file, prepares the audio, extracts a compact set of
+energy and frequency features, and passes those features to a logistic-regression
+baseline. It then shows the resulting model-evidence score alongside the waveform,
+spectrogram, and an uncertainty-aware explanation.
+
+The public demonstration uses procedurally generated, non-human audio. Those
+synthetic clips demonstrate how the interface behaves; their individual scores
+are not evaluation evidence. The reported metrics come from cross-validation on
+the attributed public research dataset.
+
 ## Three-minute reviewer path
 
-1. Open **Try the prototype** and compare the event-present, event-absent and
-   deliberately uncertain examples.
+1. Open **Try the prototype** and compare the stronger transient, quieter and
+   deliberately ambiguous synthetic patterns.
 2. Open **Evidence** to see why participant-grouped validation is treated as
    the headline result.
 3. Open **How it works** for the four-stage signal-to-insight pipeline.
