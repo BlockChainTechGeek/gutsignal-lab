@@ -241,6 +241,7 @@ with evidence_tab:
     metrics = load_metrics()
     grouped = metrics["participant_grouped_cross_validation"]
     random = metrics["random_recording_cross_validation"]
+    uncertainty = metrics["uncertainty_band_evaluation"]
 
     st.subheader("The less flattering result is the headline result")
     st.write(
@@ -289,6 +290,43 @@ with evidence_tab:
     st.warning(
         "Randomly mixing recordings produced higher scores, but that easier test can overestimate "
         "real-world performance. The participant-grouped result above is the more cautious estimate."
+    )
+
+    st.subheader('When the model is allowed to say "uncertain"')
+    st.write(
+        "The interface withholds a confident result for scores between 35% and 65%. "
+        "Participant-grouped evaluation shows whether that range actually concentrates mistakes."
+    )
+    uncertainty_columns = st.columns(3)
+    uncertainty_columns[0].metric(
+        "Marked uncertain",
+        f"{uncertainty['uncertain_fraction']:.1%}",
+        help=(
+            f"{uncertainty['uncertain_recordings']:,} of "
+            f"{uncertainty['recordings']:,} recordings"
+        ),
+    )
+    uncertainty_columns[1].metric(
+        "Accuracy on remaining recordings",
+        f"{uncertainty['decided_accuracy']:.1%}",
+        delta=(
+            f"{(uncertainty['decided_accuracy'] - grouped['accuracy']) * 100:.1f} "
+            "percentage points"
+        ),
+        help="Overall accuracy after the uncertain recordings are withheld.",
+    )
+    uncertainty_columns[2].metric(
+        "Errors inside uncertain range",
+        f"{uncertainty['error_capture_rate']:.1%}",
+        help=(
+            f"{uncertainty['errors_inside_band']} of the forced decisions that would have been wrong"
+        ),
+    )
+    st.caption(
+        "This is an internal cross-validation result, not proof of clinical safety. Overall accuracy "
+        "improves, but balanced accuracy changes little because the dataset contains many more event "
+        "clips than non-event clips. The band concentrates some errors and still requires external "
+        "validation."
     )
     st.image(EVIDENCE_IMAGE_PATH, width="stretch")
 
@@ -356,7 +394,8 @@ with limits_tab:
         1. Validate on entirely new participants and recording sessions.
         2. Stress-test motion, speech, clothing friction and imperfect sensor contact.
         3. Compare performance across devices and skin-placement variation.
-        4. Measure calibration and abstain when evidence is weak.
+        4. Confirm the uncertainty range on an external participant holdout and define when the model
+           must withhold a result.
         5. Co-design explanations with users and clinicians before exposing outputs.
         """
     )
