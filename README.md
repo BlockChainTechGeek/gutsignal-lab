@@ -25,7 +25,7 @@ system, or reconstruction of Suna's proprietary technology.
 
 1. Split by participant wherever participant identifiers permit it.
 2. Establish a simple baseline before attempting a complex model.
-3. Report precision, recall, F1, average precision, and calibration—not only
+3. Report precision, recall, F1, average precision, and calibration, not only
    accuracy.
 4. Inspect errors and possible leakage.
 5. State clearly what the data and model cannot establish.
@@ -96,14 +96,14 @@ demo clips are sufficient to run the reviewer experience.
 
 ## Project map
 
-- `streamlit_app.py` — interactive evidence and explanation interface
-- `src/gutsignal/` — dataset, feature and modelling code
-- `scripts/` — reproducible data, training and analysis commands
-- `docs/MODEL_CARD.md` — intended use, evaluation and limitations
-- `docs/TECHNICAL_REPORT.md` — technical and product narrative
-- `docs/INTERVIEW_GUIDE.md` — lightweight potential-user research
-- `docs/DATA_AND_ATTRIBUTION.md` — provenance, licence and grouping caveat
-- `docs/PUBLISHING_CHECKLIST.md` — repository and deployment handoff
+- `streamlit_app.py`: interactive evidence and explanation interface
+- `src/gutsignal/`: dataset, feature and modelling code
+- `scripts/`: reproducible data, training and analysis commands
+- `docs/MODEL_CARD.md`: intended use, evaluation and limitations
+- `docs/TECHNICAL_REPORT.md`: technical and product narrative
+- `docs/INTERVIEW_GUIDE.md`: lightweight potential-user research
+- `docs/DATA_AND_ATTRIBUTION.md`: provenance, licence and grouping caveat
+- `docs/PUBLISHING_CHECKLIST.md`: repository and deployment handoff
 
 Internal application materials, interview responses and the walkthrough script
 are intentionally excluded from the public repository.
