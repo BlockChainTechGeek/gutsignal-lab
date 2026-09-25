@@ -63,6 +63,21 @@ of 0.896. The grouped result is used as the headline estimate because random
 clip allocation can expose a model to recordings from the same person during
 training and evaluation.
 
+## Uncertainty range
+
+The interface labels probabilities from 0.35 up to, but not including, 0.65 as
+uncertain. Applied to participant-grouped out-of-fold predictions, this range:
+
+- withholds a confident result for 217 of 1,606 recordings (13.5%);
+- contains 94 of the 276 forced-decision errors (34.1%);
+- raises overall accuracy on the remaining recordings from 82.8% to 86.9%; and
+- produces a 43.3% forced-decision error rate inside the uncertain range.
+
+Balanced accuracy on the decided subset is 0.685, compared with 0.683 across all
+recordings. The overall accuracy increase partly reflects class imbalance, so the
+result should be interpreted as evidence that the band concentrates some errors,
+not as proof of calibration, clinical safety, or reliable abstention on new data.
+
 ## Intended uses
 
 - Demonstrating an end-to-end audio-ML workflow
@@ -91,8 +106,8 @@ training and evaluation.
    function or explain why an event occurred.
 5. Labels depend on expert judgement and may contain uncertainty.
 6. The threshold was not selected for a clinical operating point.
-7. Calibration remains imperfect, so the interface uses cautious language and
-   an uncertainty region.
+7. Calibration remains imperfect. The uncertainty region concentrates some
+   internal cross-validation errors but has not been validated externally.
 
 ## Responsible presentation
 
