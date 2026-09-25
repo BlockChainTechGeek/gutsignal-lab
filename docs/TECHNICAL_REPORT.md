@@ -57,6 +57,18 @@ result is promising for a simple baseline, but the false-positive count and
 calibration curve argue against interpreting the output as a reliable health
 signal.
 
+### Initial abstention analysis
+
+The interface marks probabilities from 0.35 up to, but not including, 0.65 as
+uncertain. On participant-grouped out-of-fold predictions, that range contains
+217 of 1,606 recordings and 94 of the 276 forced-decision errors. Overall accuracy
+on the remaining recordings rises from 82.8% to 86.9%.
+
+This is evidence that the range concentrates some mistakes, but the result is
+not conclusive. Balanced accuracy changes only from 0.683 to 0.685, partly because
+the dataset contains many more event clips than non-event clips. External
+participant, device, and recording-condition validation remains necessary.
+
 ## Product interpretation
 
 The interface uses three states: lower evidence, uncertain, and higher evidence.
@@ -78,7 +90,8 @@ therefore makes limitations visible at the moment a result is shown.
    and ambient sound.
 4. Compare the transparent baseline with compact CNN and self-supervised audio
    representations.
-5. Evaluate calibration and implement abstention when evidence is insufficient.
+5. Confirm the uncertainty range on an external participant holdout and define
+   when the model must withhold a result.
 6. Co-design language with users and clinicians, then measure comprehension
    rather than assuming that explanations work.
 7. Define product claims only after linking each claim to suitable ground truth
