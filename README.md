@@ -1,6 +1,6 @@
 # GutSignal Lab
 
-An independent 48-hour technical and product sprint inspired by Suna Health's
+An independent technical and product prototype exploring Suna Health's
 signal-to-insight problem.
 
 The project asks a deliberately narrow question:
