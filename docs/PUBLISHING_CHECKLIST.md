@@ -3,7 +3,7 @@
 ## Repository
 
 - Suggested name: `gutsignal-lab`
-- Suggested description: Independent 48-hour signal-to-insight sprint: a
+- Suggested description: Independent signal-to-insight prototype: a
   transparent bowel-sound event-detection baseline with participant-aware
   validation.
 - Suggested topics: `machine-learning`, `signal-processing`, `digital-health`,
