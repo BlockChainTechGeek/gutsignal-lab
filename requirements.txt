@@ -1,0 +1,3 @@
+# Streamlit Community Cloud installs the local package and its dependencies
+# from pyproject.toml through this editable requirement.
+-e .

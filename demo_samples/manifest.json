@@ -1,0 +1,17 @@
+{
+  "Synthetic event-like pattern": {
+    "file": "synthetic_event.wav",
+    "example_label": "event-like synthetic pattern",
+    "purpose": "Illustrates how a stronger transient pattern moves through the pipeline."
+  },
+  "Synthetic low-activity pattern": {
+    "file": "synthetic_nonevent.wav",
+    "example_label": "low-activity synthetic pattern",
+    "purpose": "Illustrates a quieter signal with no human recording attached."
+  },
+  "Synthetic boundary pattern": {
+    "file": "synthetic_boundary.wav",
+    "example_label": "ambiguous synthetic pattern",
+    "purpose": "Illustrates why the interface includes an uncertainty state."
+  }
+}

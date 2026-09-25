@@ -1,0 +1,51 @@
+{
+  "dataset": {
+    "recordings": 1606,
+    "participant_groups": 19,
+    "event_positive": 1283,
+    "event_negative": 323
+  },
+  "participant_grouped_cross_validation": {
+    "accuracy": 0.8281444582814446,
+    "balanced_accuracy": 0.6827916382124906,
+    "precision": 0.8677867056245434,
+    "recall": 0.9259547934528449,
+    "f1": 0.8959276018099548,
+    "average_precision": 0.9454368248525473,
+    "roc_auc": 0.8246394262672866,
+    "brier_score": 0.12338704839826223,
+    "confusion_matrix": [
+      [
+        142,
+        181
+      ],
+      [
+        95,
+        1188
+      ]
+    ],
+    "threshold": 0.5
+  },
+  "random_recording_cross_validation": {
+    "accuracy": 0.8599003735990037,
+    "balanced_accuracy": 0.7316238305635254,
+    "precision": 0.8861313868613139,
+    "recall": 0.946219797349961,
+    "f1": 0.9151903505465511,
+    "average_precision": 0.9701024982308786,
+    "roc_auc": 0.8956707021324344,
+    "brier_score": 0.0991804050006253,
+    "confusion_matrix": [
+      [
+        167,
+        156
+      ],
+      [
+        69,
+        1214
+      ]
+    ],
+    "threshold": 0.5
+  },
+  "interpretation": "The grouped estimate is the headline result. The random-recording estimate is included only to make the generalisation gap visible; recordings from one participant should not appear in both training and evaluation folds."
+}
