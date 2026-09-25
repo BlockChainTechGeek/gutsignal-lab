@@ -58,3 +58,48 @@ def probability_metrics(y_true: np.ndarray, probability: np.ndarray) -> dict[str
         "confusion_matrix": matrix.tolist(),
         "threshold": 0.5,
     }
+
+
+def uncertainty_band_metrics(
+    y_true: np.ndarray,
+    probability: np.ndarray,
+    lower: float = 0.35,
+    upper: float = 0.65,
+) -> dict[str, Any]:
+    if not 0 <= lower < 0.5 < upper <= 1:
+        raise ValueError("Expected 0 <= lower < 0.5 < upper <= 1")
+
+    prediction = (probability >= 0.5).astype(int)
+    uncertain = (probability >= lower) & (probability < upper)
+    decided = ~uncertain
+    errors = prediction != y_true
+
+    if not decided.any():
+        raise ValueError("The uncertainty band leaves no decided recordings")
+
+    total_errors = int(errors.sum())
+    errors_inside_band = int((errors & uncertain).sum())
+    decided_target = y_true[decided]
+    decided_prediction = prediction[decided]
+
+    return {
+        "lower_bound": lower,
+        "upper_bound": upper,
+        "recordings": len(y_true),
+        "uncertain_recordings": int(uncertain.sum()),
+        "uncertain_fraction": float(uncertain.mean()),
+        "decision_coverage": float(decided.mean()),
+        "decided_accuracy": accuracy_score(decided_target, decided_prediction),
+        "decided_balanced_accuracy": balanced_accuracy_score(
+            decided_target, decided_prediction
+        ),
+        "decided_precision": precision_score(
+            decided_target, decided_prediction, zero_division=0
+        ),
+        "decided_recall": recall_score(decided_target, decided_prediction, zero_division=0),
+        "errors_inside_band": errors_inside_band,
+        "error_capture_rate": errors_inside_band / total_errors if total_errors else 0.0,
+        "forced_error_rate_inside_band": float(errors[uncertain].mean())
+        if uncertain.any()
+        else 0.0,
+    }
