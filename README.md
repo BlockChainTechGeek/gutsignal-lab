@@ -11,6 +11,8 @@ The project asks a deliberately narrow question:
 This is an application portfolio project, not a medical device, diagnostic
 system, or reconstruction of Suna's proprietary technology.
 
+**Live demo:** https://gutsignal-lab.streamlit.app
+
 ## Deliverables
 
 - A reproducible public-data audit and participant-aware evaluation
@@ -30,8 +32,8 @@ system, or reconstruction of Suna's proprietary technology.
 
 ## Status
 
-Working baseline and reviewer-facing interactive prototype complete. User
-research, public deployment and final application packaging are in progress.
+Working baseline and reviewer-facing interactive prototype complete and
+publicly deployed. User research and final application packaging are in progress.
 
 ## Current result
 
@@ -75,10 +77,10 @@ uv run pytest -q
 
 ## Public deployment
 
-The repository is ready for a standard Streamlit deployment using
-`streamlit_app.py` as the entrypoint and Python 3.12. No API keys or private
-data are required. The bundled model, evidence figure and three synthetic,
-non-human demo clips are sufficient to run the reviewer experience.
+The reviewer experience is live at https://gutsignal-lab.streamlit.app. It uses
+`streamlit_app.py` as the entrypoint and Python 3.12. No API keys or private data
+are required. The bundled model, evidence figure and three synthetic, non-human
+demo clips are sufficient to run the reviewer experience.
 
 ## Project map
 
