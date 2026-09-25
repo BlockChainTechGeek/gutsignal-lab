@@ -92,7 +92,7 @@ def load_model_bundle() -> dict:
 
 @st.cache_data
 def load_metrics() -> dict:
-    return json.loads(METRICS_PATH.read_text())
+    return json.loads(METRICS_PATH.read_text(encoding="utf-8"))
 
 
 @st.cache_data
