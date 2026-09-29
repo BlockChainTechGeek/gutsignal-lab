@@ -1,10 +1,10 @@
-# GutSignal Lab: from physiological sound to honest product insight
+# GutSignal Lab: bowel-sound event detection with uncertainty
 
 ## Executive summary
 
-GutSignal Lab is an independent, time-boxed application sprint inspired by
-Suna Health's signal-to-insight problem. The sprint does not attempt to recreate
-Suna's product. It asks a narrower question: can a small, reproducible baseline
+GutSignal Lab is a portfolio project inspired by Suna Health's signal-to-insight
+problem. It does not attempt to recreate Suna's product. It asks a narrower
+question: can a small, reproducible baseline
 detect expert-annotated bowel-sound events in public abdominal audio, and can
 the result be communicated without turning a model output into a health claim?
 
@@ -34,7 +34,7 @@ spectral shape, low/high-frequency energy, and MFCCs. A regularised logistic
 regression provides an intentionally interpretable first baseline.
 
 This model is not intended to maximise a leaderboard metric. Its purpose is to
-establish a transparent reference point, expose validation risks, and support
+establish an interpretable reference point, expose validation risks, and support
 clear error analysis before trying more complex architectures.
 
 ## Results
@@ -98,8 +98,8 @@ current dataset and event-detection model cannot support those conclusions, so
 the prototype keeps them out of scope.
 
 This was a convenience sample of four adults, not representative validation. No
-direct quotations or raw responses are published. The full anonymised synthesis
-is available in `docs/USER_RESEARCH_MEMO.md`.
+direct quotations or raw responses are published. A fuller synthesis is retained
+privately.
 
 ## What I would test next
 
@@ -109,7 +109,7 @@ is available in `docs/USER_RESEARCH_MEMO.md`.
    environments.
 3. Create explicit artefact sets for motion, clothing, speech, contact loss,
    and ambient sound.
-4. Compare the transparent baseline with compact CNN and self-supervised audio
+4. Compare this baseline with compact CNN and self-supervised audio
    representations.
 5. Confirm the uncertainty range on an external participant holdout and define
    when the model must withhold a result.
@@ -118,9 +118,8 @@ is available in `docs/USER_RESEARCH_MEMO.md`.
 7. Define product claims only after linking each claim to suitable ground truth
    and prospective validation.
 
-## Why this sprint matters
+## What the project demonstrates
 
-The technical model is only one part of the work. The stronger demonstration is
-the operating approach: reduce an ambiguous problem to a defensible question,
-build the simplest useful system, find where the attractive result is fragile,
-communicate that honestly, and identify the next experiment.
+The model is only one part of the work. The project shows how I scoped an
+unfamiliar problem, built a working baseline, tested it with stricter validation,
+spoke to potential users, and documented what remains unknown.

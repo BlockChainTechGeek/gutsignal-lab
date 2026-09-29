@@ -302,16 +302,14 @@ with evidence_tab:
         "Marked uncertain",
         f"{uncertainty['uncertain_fraction']:.1%}",
         help=(
-            f"{uncertainty['uncertain_recordings']:,} of "
-            f"{uncertainty['recordings']:,} recordings"
+            f"{uncertainty['uncertain_recordings']:,} of {uncertainty['recordings']:,} recordings"
         ),
     )
     uncertainty_columns[1].metric(
         "Accuracy on remaining recordings",
         f"{uncertainty['decided_accuracy']:.1%}",
         delta=(
-            f"{(uncertainty['decided_accuracy'] - grouped['accuracy']) * 100:.1f} "
-            "percentage points"
+            f"{(uncertainty['decided_accuracy'] - grouped['accuracy']) * 100:.1f} percentage points"
         ),
         help="Overall accuracy after the uncertain recordings are withheld.",
     )
@@ -331,10 +329,10 @@ with evidence_tab:
     st.image(EVIDENCE_IMAGE_PATH, width="stretch")
 
 with method_tab:
-    st.subheader("A deliberately simple, auditable baseline")
+    st.subheader("A simple, auditable baseline")
     st.write(
-        "The goal was not to maximise a leaderboard score. It was to build a reproducible first "
-        "system whose assumptions, failure modes and next experiments could be inspected."
+        "The goal was to build a reproducible first system whose assumptions, failure modes and "
+        "next experiments could be inspected."
     )
 
     step_columns = st.columns(4)
@@ -364,9 +362,9 @@ with method_tab:
     st.subheader("Why start simple?")
     st.markdown(
         """
-        - A small public dataset does not justify pretending complexity guarantees generalisation.
+        - With a small public dataset, added model complexity would not remove the generalisation problem.
         - Interpretable features make errors and shortcuts easier to investigate.
-        - A transparent baseline creates a reference point for any later deep-learning model.
+        - This baseline provides a reference point for any later deep-learning model.
         - Product language and abstention behaviour matter alongside discrimination metrics.
         """
     )
@@ -421,9 +419,9 @@ with limits_tab:
         "Clinical signposting should be proportionate, not attached to every uncertain result."
     )
     st.info(
-        "The research also exposed a claims gap. Participants asked for nutrient deficiencies, "
-        "digestion speed, food triggers, and advice on what to avoid. This prototype cannot support "
-        "those conclusions, so they remain out of scope."
+        "The research also showed a gap between what people wanted and what this model can support. "
+        "Participants asked for nutrient deficiencies, digestion speed, food triggers, and advice "
+        "on what to avoid. This prototype cannot support those conclusions, so they remain out of scope."
     )
 
     st.subheader("Read the work")
@@ -448,7 +446,7 @@ with limits_tab:
     )
 
 st.markdown(
-    '<div class="footer-note">Independent application proof of work. '
+    '<div class="footer-note">Portfolio project. '
     "Public data only · non-diagnostic · September 2026</div>",
     unsafe_allow_html=True,
 )

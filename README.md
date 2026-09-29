@@ -1,12 +1,12 @@
 # GutSignal Lab
 
-An independent technical and product prototype exploring Suna Health's
+A technical and product prototype exploring one part of Suna Health's
 signal-to-insight problem.
 
-The project asks a deliberately narrow question:
+The project asks a narrow question:
 
 > Can a small, reproducible baseline detect bowel-sound events in public
-> abdominal audio while communicating uncertainty honestly?
+> abdominal audio and show when the result is uncertain?
 
 This is an application portfolio project, not a medical device, diagnostic
 system, or reconstruction of Suna's proprietary technology.
@@ -16,7 +16,7 @@ system, or reconstruction of Suna's proprietary technology.
 ## Deliverables
 
 - A reproducible public-data audit and participant-aware evaluation
-- A transparent signal-processing and ML baseline
+- An interpretable signal-processing and ML baseline
 - An interactive explanation layer using non-diagnostic language
 - An anonymised research synthesis about trust, usefulness, and uncertainty
 - A concise model card and technical report
@@ -32,9 +32,8 @@ system, or reconstruction of Suna's proprietary technology.
 
 ## Status
 
-Working baseline and reviewer-facing interactive prototype complete and
-publicly deployed. Exploratory research with four participants is complete; final
-application packaging is in progress.
+The baseline, interactive prototype, exploratory research, and public deployment
+are complete.
 
 ## Current result
 
@@ -64,7 +63,7 @@ the attributed public research dataset.
 ## Three-minute reviewer path
 
 1. Open **Try the prototype** and compare the stronger transient, quieter and
-   deliberately ambiguous synthetic patterns.
+   ambiguous synthetic patterns.
 2. Open **Evidence** to see why participant-grouped validation is treated as
    the headline result.
 3. Open **How it works** for the four-stage signal-to-insight pipeline.
@@ -112,8 +111,8 @@ demo clips are sufficient to run the reviewer experience.
 - `docs/DATA_AND_ATTRIBUTION.md`: provenance, licence and grouping caveat
 - `docs/PUBLISHING_CHECKLIST.md`: repository and deployment handoff
 
-Internal application materials, interview responses and the walkthrough script
-are intentionally excluded from the public repository.
+Internal application materials, raw responses, the fuller research memo and the
+optional walkthrough script are excluded from the public repository.
 
 ## Boundaries
 

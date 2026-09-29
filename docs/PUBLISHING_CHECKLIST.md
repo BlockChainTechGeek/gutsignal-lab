@@ -3,19 +3,18 @@
 ## Repository
 
 - Suggested name: `gutsignal-lab`
-- Suggested description: Independent signal-to-insight prototype: a
-  transparent bowel-sound event-detection baseline with participant-aware
-  validation.
+- Suggested description: Bowel-sound event detection with participant-aware
+  validation and uncertainty reporting.
 - Suggested topics: `machine-learning`, `signal-processing`, `digital-health`,
   `streamlit`, `responsible-ai`
 - Default branch: `main`
 - Visibility: public for the application portfolio, unless the application
   process specifically requests a private link.
 
-Internal application materials and the walkthrough script are intentionally
-excluded through `.gitignore`. Raw questionnaire responses, interview
-recordings, contact details, API keys and Streamlit secrets must never be
-committed.
+Internal application materials, the fuller research memo and the optional
+walkthrough script are excluded through `.gitignore`. Raw questionnaire
+responses, interview recordings, contact details, API keys and Streamlit
+secrets must never be committed.
 
 ## Pre-publish checks
 
@@ -47,10 +46,9 @@ Confirm that:
 
 ## Submission links
 
-The final application should use three links, in this order:
+The final application should use two links, in this order:
 
 1. Live interactive demo
-2. Two-minute walkthrough video
-3. GitHub repository
+2. GitHub repository
 
 The ZIP checkpoint is a backup, not something to send to Suna.

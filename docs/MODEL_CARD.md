@@ -2,7 +2,7 @@
 
 ## Summary
 
-GutSignal is a deliberately small research baseline that estimates whether a
+GutSignal is a small research baseline that estimates whether a
 two-second abdominal audio clip contains a sound event resembling the expert
 annotations in one public bowel-sound dataset.
 
@@ -33,7 +33,7 @@ The project uses the public **Bowel sounds** dataset by Robert Nowak, associated
 with Ficek et al. (2021). It contains 1,606 two-second recordings and paired
 expert annotation files. The research reports 19 participants.
 
-The filename suffix produces exactly 19 groups. This sprint uses that suffix as
+The filename suffix produces exactly 19 groups. This project uses that suffix as
 the participant grouping variable for cross-validation. That mapping is a
 reasonable but documented inference and should be verified with the dataset
 authors before publication-quality work.

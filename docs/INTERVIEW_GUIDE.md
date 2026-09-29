@@ -8,7 +8,8 @@ communicated. This is product research, not medical research or medical advice.
 
 ## Who to speak with
 
-Aim for 5–8 adults with a mixture of:
+For an exploratory first round, speak with at least four adults with a mixture
+of:
 
 - occasional bloating or food-response uncertainty;
 - existing use of a health wearable;
@@ -20,7 +21,7 @@ unnecessary sensitive information.
 
 ## Opening script
 
-> I am completing a short product-research sprint for a job application about
+> I am completing a short product-research project for a job application about
 > how people might understand information from a future gut-health wearable.
 > This is not medical research and I will not ask for medical records or give
 > health advice. I would like to take anonymous notes for a short research memo.
@@ -28,24 +29,18 @@ unnecessary sensitive information.
 
 ## Questions
 
-1. When digestion or a meal does not feel right, how do you currently work out
-   what may have influenced it?
-2. Do you track food, symptoms, sleep, stress, exercise, or anything similar?
-   What makes that easy or frustrating?
-3. Imagine a small abdominal wearable could passively show patterns involving
-   meals, sleep, activity, and digestive sounds. What would you want it to tell
-   you first?
-4. What would make you trust or distrust an insight from it?
-5. How much explanation would you want beneath a score or alert?
-6. If the system were uncertain, how should it communicate that?
-7. What would make wearing a patch worthwhile for several days?
-8. What privacy or social concerns would you have?
-9. What could the product say or do that would feel alarmist or inappropriate?
-10. If you could change one thing about the concept, what would it be?
+1. When digestion or a meal does not feel right, what do you usually look back
+   at to work out what may have influenced it?
+2. Would passive information about your digestive patterns be useful to you?
+   Why, or in which situations?
+3. What would make you trust or distrust an insight from a gut-health wearable?
+4. If the system were uncertain, how should it explain that and what should it
+   suggest next?
+5. What would you most want this type of product to help you understand?
 
 ## Closing
 
-> Is there anything important about this experience that I failed to ask?
+> Is there anything important that I failed to ask?
 
 Thank the participant. Record only anonymous themes unless they explicitly
 agree to attribution.

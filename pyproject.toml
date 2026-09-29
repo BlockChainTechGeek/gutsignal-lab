@@ -1,7 +1,7 @@
 [project]
 name = "gutsignal-lab"
 version = "0.1.0"
-description = "Reproducible bowel-sound event detection and explanation sprint"
+description = "Reproducible bowel-sound event detection and uncertainty prototype"
 requires-python = ">=3.12"
 dependencies = [
   "joblib>=1.4",

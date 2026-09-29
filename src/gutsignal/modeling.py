@@ -90,12 +90,8 @@ def uncertainty_band_metrics(
         "uncertain_fraction": float(uncertain.mean()),
         "decision_coverage": float(decided.mean()),
         "decided_accuracy": accuracy_score(decided_target, decided_prediction),
-        "decided_balanced_accuracy": balanced_accuracy_score(
-            decided_target, decided_prediction
-        ),
-        "decided_precision": precision_score(
-            decided_target, decided_prediction, zero_division=0
-        ),
+        "decided_balanced_accuracy": balanced_accuracy_score(decided_target, decided_prediction),
+        "decided_precision": precision_score(decided_target, decided_prediction, zero_division=0),
         "decided_recall": recall_score(decided_target, decided_prediction, zero_division=0),
         "errors_inside_band": errors_inside_band,
         "error_capture_rate": errors_inside_band / total_errors if total_errors else 0.0,
