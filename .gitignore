@@ -16,5 +16,6 @@ artifacts/manifest.csv
 artifacts/model/oof_predictions.csv
 docs/APPLICATION_DRAFT.md
 docs/SPRINT_BRIEF.md
+docs/USER_RESEARCH_MEMO.md
 docs/WALKTHROUGH_SCRIPT.md
 research/private/
