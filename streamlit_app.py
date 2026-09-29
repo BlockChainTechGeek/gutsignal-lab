@@ -427,23 +427,17 @@ with limits_tab:
     )
 
     st.subheader("Read the work")
-    left, middle_left, middle_right, right = st.columns(4)
+    left, middle, right = st.columns(3)
     left.download_button(
         "Download the model card",
         data=(ROOT / "docs" / "MODEL_CARD.md").read_text(),
         file_name="GutSignal_Model_Card.md",
         mime="text/markdown",
     )
-    middle_left.download_button(
+    middle.download_button(
         "Download the technical report",
         data=(ROOT / "docs" / "TECHNICAL_REPORT.md").read_text(),
         file_name="GutSignal_Technical_Report.md",
-        mime="text/markdown",
-    )
-    middle_right.download_button(
-        "Download the research memo",
-        data=(ROOT / "docs" / "USER_RESEARCH_MEMO.md").read_text(),
-        file_name="GutSignal_User_Research_Memo.md",
         mime="text/markdown",
     )
     right.download_button(
