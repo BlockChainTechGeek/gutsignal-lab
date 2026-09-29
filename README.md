@@ -33,7 +33,8 @@ system, or reconstruction of Suna's proprietary technology.
 ## Status
 
 Working baseline and reviewer-facing interactive prototype complete and
-publicly deployed. User research and final application packaging are in progress.
+publicly deployed. Exploratory research with four participants is complete; final
+application packaging is in progress.
 
 ## Current result
 
@@ -68,7 +69,7 @@ the attributed public research dataset.
    the headline result.
 3. Open **How it works** for the four-stage signal-to-insight pipeline.
 4. Finish with **Limits & next steps** for the claims the prototype refuses to
-   make and the user-research questions still being tested.
+   make and the findings from four exploratory participants.
 
 The interface is intentionally demo-first. It should be understandable without
 reading the code or assuming that a research probability is a health score.
@@ -108,6 +109,7 @@ demo clips are sufficient to run the reviewer experience.
 - `docs/MODEL_CARD.md`: intended use, evaluation and limitations
 - `docs/TECHNICAL_REPORT.md`: technical and product narrative
 - `docs/INTERVIEW_GUIDE.md`: lightweight potential-user research
+- `docs/USER_RESEARCH_MEMO.md`: anonymised findings and product implications
 - `docs/DATA_AND_ATTRIBUTION.md`: provenance, licence and grouping caveat
 - `docs/PUBLISHING_CHECKLIST.md`: repository and deployment handoff
 
