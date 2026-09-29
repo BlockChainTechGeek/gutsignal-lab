@@ -24,6 +24,10 @@ def test_public_demo_renders_without_exceptions() -> None:
         metric.label == "Accuracy on remaining recordings" and metric.value == "86.9%"
         for metric in app.metric
     )
+    assert any(
+        "What four exploratory conversations revealed" in subheader.value
+        for subheader in app.subheader
+    )
 
     app.selectbox[0].select("Synthetic boundary pattern").run()
     assert not app.exception
