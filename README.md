@@ -18,7 +18,7 @@ system, or reconstruction of Suna's proprietary technology.
 - A reproducible public-data audit and participant-aware evaluation
 - A transparent signal-processing and ML baseline
 - An interactive explanation layer using non-diagnostic language
-- A short user-research memo about trust, usefulness, and uncertainty
+- An anonymised research synthesis about trust, usefulness, and uncertainty
 - A concise model card and technical report
 
 ## Scientific principles
@@ -109,7 +109,6 @@ demo clips are sufficient to run the reviewer experience.
 - `docs/MODEL_CARD.md`: intended use, evaluation and limitations
 - `docs/TECHNICAL_REPORT.md`: technical and product narrative
 - `docs/INTERVIEW_GUIDE.md`: lightweight potential-user research
-- `docs/USER_RESEARCH_MEMO.md`: anonymised findings and product implications
 - `docs/DATA_AND_ATTRIBUTION.md`: provenance, licence and grouping caveat
 - `docs/PUBLISHING_CHECKLIST.md`: repository and deployment handoff
 
