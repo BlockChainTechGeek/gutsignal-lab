@@ -80,6 +80,27 @@ This distinction is central to the prototype. In health technology, a polished
 interface can create more confidence than the evidence warrants. The design
 therefore makes limitations visible at the moment a result is shown.
 
+## Exploratory user research
+
+Four adults completed the same five-question written exercise. All described
+looking backwards at meals, timing, or previous experiences to make sense of
+digestive changes. They wanted passive information to reveal patterns they might
+otherwise miss, but trust depended on evidence, understandable explanations, and
+transparency about how information was collected and used.
+
+Participants wanted uncertainty explained rather than hidden. They asked for a
+reason and a proportionate next step, with clinical signposting used carefully
+rather than attached to every uncertain result.
+
+The research also exposed a claims gap. Participants wanted conclusions about
+food triggers, nutrient deficiencies, digestion speed, and foods to avoid. The
+current dataset and event-detection model cannot support those conclusions, so
+the prototype keeps them out of scope.
+
+This was a convenience sample of four adults, not representative validation. No
+direct quotations or raw responses are published. The full anonymised synthesis
+is available in `docs/USER_RESEARCH_MEMO.md`.
+
 ## What I would test next
 
 1. Confirm the participant identifier and use a locked, external participant
@@ -92,8 +113,8 @@ therefore makes limitations visible at the moment a result is shown.
    representations.
 5. Confirm the uncertainty range on an external participant holdout and define
    when the model must withhold a result.
-6. Co-design language with users and clinicians, then measure comprehension
-   rather than assuming that explanations work.
+6. Test revised explanations with a broader sample and clinicians, measuring
+   comprehension rather than assuming that the language works.
 7. Define product claims only after linking each claim to suitable ground truth
    and prospective validation.
 
