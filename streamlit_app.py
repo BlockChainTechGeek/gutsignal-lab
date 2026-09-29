@@ -400,36 +400,50 @@ with limits_tab:
         """
     )
 
-    st.subheader("User research in progress")
+    st.subheader("What four exploratory conversations revealed")
     st.write(
-        "A short questionnaire and follow-up interviews are testing a separate product question: "
-        "what would make longitudinal gut-signal insights feel useful, trustworthy and appropriately "
-        "uncertain to a non-clinical user? Findings will be added as evidence, not retrofitted to "
-        "support a predetermined conclusion."
+        "Four adults answered the same five anonymous questions. This was a small convenience "
+        "sample for product discovery, not representative user validation. No diagnoses, medical "
+        "records, names, or contact details were collected, and no direct quotations are published."
     )
     research_columns = st.columns(3)
     research_columns[0].markdown(
-        "**Usefulness**\n\nWhich decisions or reflections would an insight genuinely support?"
+        "**Spot patterns**\n\nAll four described looking backwards at meals or timing. The clearest "
+        "job is helping people notice patterns and possible food relationships, not issuing a "
+        "single health score."
     )
     research_columns[1].markdown(
-        "**Trust**\n\nWhat explanation and evidence would make an output credible?"
+        "**Earn trust**\n\nParticipants wanted evidence, explanations of how information is "
+        "collected, and a simple interface. Flashy claims or unrelated data use would reduce trust."
     )
     research_columns[2].markdown(
-        "**Boundaries**\n\nWhere should a consumer product abstain or recommend clinical advice?"
+        "**Explain uncertainty**\n\nPeople wanted a reason for uncertainty and a sensible next step. "
+        "Clinical signposting should be proportionate, not attached to every uncertain result."
+    )
+    st.info(
+        "The research also exposed a claims gap. Participants asked for nutrient deficiencies, "
+        "digestion speed, food triggers, and advice on what to avoid. This prototype cannot support "
+        "those conclusions, so they remain out of scope."
     )
 
     st.subheader("Read the work")
-    left, middle, right = st.columns(3)
+    left, middle_left, middle_right, right = st.columns(4)
     left.download_button(
         "Download the model card",
         data=(ROOT / "docs" / "MODEL_CARD.md").read_text(),
         file_name="GutSignal_Model_Card.md",
         mime="text/markdown",
     )
-    middle.download_button(
+    middle_left.download_button(
         "Download the technical report",
         data=(ROOT / "docs" / "TECHNICAL_REPORT.md").read_text(),
         file_name="GutSignal_Technical_Report.md",
+        mime="text/markdown",
+    )
+    middle_right.download_button(
+        "Download the research memo",
+        data=(ROOT / "docs" / "USER_RESEARCH_MEMO.md").read_text(),
+        file_name="GutSignal_User_Research_Memo.md",
         mime="text/markdown",
     )
     right.download_button(
