@@ -1,0 +1,381 @@
+{
+  "scope": "Generated non-human audio: engineering sensitivity checks, not accuracy evidence",
+  "seed": 42,
+  "model_sha256": "f77e189fe78c58a6384a56c00ffb8b7abf381f119bcc935a01d9b3739957803d",
+  "input_sha256": {
+    "Synthetic event-like pattern": "779580e18d85fc5e31ad3d5fb30707538aae694d280539c3564912bf14b8d2b0",
+    "Synthetic low-activity pattern": "12a0049985e3b37b884516e4369eadbbe2c3a6a57e5ef3257947b596ddc01897",
+    "Synthetic boundary pattern": "71a5a01aa3966f60ffb4e4baf858354f1b397e2ff96a1873dbb8e59e52a72d0d"
+  },
+  "summary": {
+    "cases": 33,
+    "withheld": 15,
+    "accepted_state_changes": 5,
+    "max_accepted_absolute_shift_percentage_points": 95.40965116045663
+  },
+  "cases": [
+    {
+      "example": "Synthetic event-like pattern",
+      "condition": "Unchanged",
+      "clean_score": 0.9818817611212248,
+      "score": 0.9818817611212248,
+      "change_percentage_points": 0.0,
+      "state": "Higher model evidence",
+      "state_changed": false,
+      "quality_accepted": true,
+      "reason": ""
+    },
+    {
+      "example": "Synthetic event-like pattern",
+      "condition": "Gain -12 dB",
+      "clean_score": 0.9818817611212248,
+      "score": 0.9818817611212248,
+      "change_percentage_points": 0.0,
+      "state": "Higher model evidence",
+      "state_changed": false,
+      "quality_accepted": true,
+      "reason": ""
+    },
+    {
+      "example": "Synthetic event-like pattern",
+      "condition": "Gain -30 dB",
+      "clean_score": 0.9818817611212248,
+      "score": 0.9818817611212248,
+      "change_percentage_points": 0.0,
+      "state": "Higher model evidence",
+      "state_changed": false,
+      "quality_accepted": true,
+      "reason": ""
+    },
+    {
+      "example": "Synthetic event-like pattern",
+      "condition": "Noise 20 dB SNR",
+      "clean_score": 0.9818817611212248,
+      "score": 0.7927448768969274,
+      "change_percentage_points": -18.913688422429743,
+      "state": "Higher model evidence",
+      "state_changed": false,
+      "quality_accepted": true,
+      "reason": ""
+    },
+    {
+      "example": "Synthetic event-like pattern",
+      "condition": "Noise 10 dB SNR",
+      "clean_score": 0.9818817611212248,
+      "score": 0.2174171683915976,
+      "change_percentage_points": -76.44645927296271,
+      "state": "Lower model evidence",
+      "state_changed": true,
+      "quality_accepted": true,
+      "reason": ""
+    },
+    {
+      "example": "Synthetic event-like pattern",
+      "condition": "Noise 0 dB SNR",
+      "clean_score": 0.9818817611212248,
+      "score": 0.027785249516658457,
+      "change_percentage_points": -95.40965116045663,
+      "state": "Lower model evidence",
+      "state_changed": true,
+      "quality_accepted": true,
+      "reason": ""
+    },
+    {
+      "example": "Synthetic event-like pattern",
+      "condition": "Clipping x8",
+      "clean_score": 0.9818817611212248,
+      "score": null,
+      "change_percentage_points": null,
+      "state": "Withheld: input quality",
+      "state_changed": true,
+      "quality_accepted": false,
+      "reason": "More than 1% of samples are near full scale: possible clipping."
+    },
+    {
+      "example": "Synthetic event-like pattern",
+      "condition": "Dropout 25%",
+      "clean_score": 0.9818817611212248,
+      "score": null,
+      "change_percentage_points": null,
+      "state": "Withheld: input quality",
+      "state_changed": true,
+      "quality_accepted": false,
+      "reason": "At least 20% of short windows are flat: possible signal loss."
+    },
+    {
+      "example": "Synthetic event-like pattern",
+      "condition": "Dropout 50%",
+      "clean_score": 0.9818817611212248,
+      "score": null,
+      "change_percentage_points": null,
+      "state": "Withheld: input quality",
+      "state_changed": true,
+      "quality_accepted": false,
+      "reason": "At least 20% of short windows are flat: possible signal loss."
+    },
+    {
+      "example": "Synthetic event-like pattern",
+      "condition": "Silence",
+      "clean_score": 0.9818817611212248,
+      "score": null,
+      "change_percentage_points": null,
+      "state": "Withheld: input quality",
+      "state_changed": true,
+      "quality_accepted": false,
+      "reason": "No usable variation: silence, a constant signal or very low level. At least 20% of short windows are flat: possible signal loss."
+    },
+    {
+      "example": "Synthetic event-like pattern",
+      "condition": "Constant DC",
+      "clean_score": 0.9818817611212248,
+      "score": null,
+      "change_percentage_points": null,
+      "state": "Withheld: input quality",
+      "state_changed": true,
+      "quality_accepted": false,
+      "reason": "No usable variation: silence, a constant signal or very low level. At least 20% of short windows are flat: possible signal loss."
+    },
+    {
+      "example": "Synthetic low-activity pattern",
+      "condition": "Unchanged",
+      "clean_score": 0.6008400716349667,
+      "score": 0.6008400716349667,
+      "change_percentage_points": 0.0,
+      "state": "Uncertain",
+      "state_changed": false,
+      "quality_accepted": true,
+      "reason": ""
+    },
+    {
+      "example": "Synthetic low-activity pattern",
+      "condition": "Gain -12 dB",
+      "clean_score": 0.6008400716349667,
+      "score": 0.6008400716349667,
+      "change_percentage_points": 0.0,
+      "state": "Uncertain",
+      "state_changed": false,
+      "quality_accepted": true,
+      "reason": ""
+    },
+    {
+      "example": "Synthetic low-activity pattern",
+      "condition": "Gain -30 dB",
+      "clean_score": 0.6008400716349667,
+      "score": 0.6008400716349667,
+      "change_percentage_points": 0.0,
+      "state": "Uncertain",
+      "state_changed": false,
+      "quality_accepted": true,
+      "reason": ""
+    },
+    {
+      "example": "Synthetic low-activity pattern",
+      "condition": "Noise 20 dB SNR",
+      "clean_score": 0.6008400716349667,
+      "score": 0.6337536326036775,
+      "change_percentage_points": 3.2913560968710787,
+      "state": "Uncertain",
+      "state_changed": false,
+      "quality_accepted": true,
+      "reason": ""
+    },
+    {
+      "example": "Synthetic low-activity pattern",
+      "condition": "Noise 10 dB SNR",
+      "clean_score": 0.6008400716349667,
+      "score": 0.45116439436160966,
+      "change_percentage_points": -14.967567727335702,
+      "state": "Uncertain",
+      "state_changed": false,
+      "quality_accepted": true,
+      "reason": ""
+    },
+    {
+      "example": "Synthetic low-activity pattern",
+      "condition": "Noise 0 dB SNR",
+      "clean_score": 0.6008400716349667,
+      "score": 0.05186545462588485,
+      "change_percentage_points": -54.89746170090818,
+      "state": "Lower model evidence",
+      "state_changed": true,
+      "quality_accepted": true,
+      "reason": ""
+    },
+    {
+      "example": "Synthetic low-activity pattern",
+      "condition": "Clipping x8",
+      "clean_score": 0.6008400716349667,
+      "score": null,
+      "change_percentage_points": null,
+      "state": "Withheld: input quality",
+      "state_changed": true,
+      "quality_accepted": false,
+      "reason": "More than 1% of samples are near full scale: possible clipping."
+    },
+    {
+      "example": "Synthetic low-activity pattern",
+      "condition": "Dropout 25%",
+      "clean_score": 0.6008400716349667,
+      "score": null,
+      "change_percentage_points": null,
+      "state": "Withheld: input quality",
+      "state_changed": true,
+      "quality_accepted": false,
+      "reason": "At least 20% of short windows are flat: possible signal loss."
+    },
+    {
+      "example": "Synthetic low-activity pattern",
+      "condition": "Dropout 50%",
+      "clean_score": 0.6008400716349667,
+      "score": null,
+      "change_percentage_points": null,
+      "state": "Withheld: input quality",
+      "state_changed": true,
+      "quality_accepted": false,
+      "reason": "At least 20% of short windows are flat: possible signal loss."
+    },
+    {
+      "example": "Synthetic low-activity pattern",
+      "condition": "Silence",
+      "clean_score": 0.6008400716349667,
+      "score": null,
+      "change_percentage_points": null,
+      "state": "Withheld: input quality",
+      "state_changed": true,
+      "quality_accepted": false,
+      "reason": "No usable variation: silence, a constant signal or very low level. At least 20% of short windows are flat: possible signal loss."
+    },
+    {
+      "example": "Synthetic low-activity pattern",
+      "condition": "Constant DC",
+      "clean_score": 0.6008400716349667,
+      "score": null,
+      "change_percentage_points": null,
+      "state": "Withheld: input quality",
+      "state_changed": true,
+      "quality_accepted": false,
+      "reason": "No usable variation: silence, a constant signal or very low level. At least 20% of short windows are flat: possible signal loss."
+    },
+    {
+      "example": "Synthetic boundary pattern",
+      "condition": "Unchanged",
+      "clean_score": 0.6116376242352053,
+      "score": 0.6116376242352053,
+      "change_percentage_points": 0.0,
+      "state": "Uncertain",
+      "state_changed": false,
+      "quality_accepted": true,
+      "reason": ""
+    },
+    {
+      "example": "Synthetic boundary pattern",
+      "condition": "Gain -12 dB",
+      "clean_score": 0.6116376242352053,
+      "score": 0.6116376242352053,
+      "change_percentage_points": 0.0,
+      "state": "Uncertain",
+      "state_changed": false,
+      "quality_accepted": true,
+      "reason": ""
+    },
+    {
+      "example": "Synthetic boundary pattern",
+      "condition": "Gain -30 dB",
+      "clean_score": 0.6116376242352053,
+      "score": 0.6116376242352053,
+      "change_percentage_points": 0.0,
+      "state": "Uncertain",
+      "state_changed": false,
+      "quality_accepted": true,
+      "reason": ""
+    },
+    {
+      "example": "Synthetic boundary pattern",
+      "condition": "Noise 20 dB SNR",
+      "clean_score": 0.6116376242352053,
+      "score": 0.4182705575679843,
+      "change_percentage_points": -19.336706666722097,
+      "state": "Uncertain",
+      "state_changed": false,
+      "quality_accepted": true,
+      "reason": ""
+    },
+    {
+      "example": "Synthetic boundary pattern",
+      "condition": "Noise 10 dB SNR",
+      "clean_score": 0.6116376242352053,
+      "score": 0.16342316780991908,
+      "change_percentage_points": -44.82144564252862,
+      "state": "Lower model evidence",
+      "state_changed": true,
+      "quality_accepted": true,
+      "reason": ""
+    },
+    {
+      "example": "Synthetic boundary pattern",
+      "condition": "Noise 0 dB SNR",
+      "clean_score": 0.6116376242352053,
+      "score": 0.028698084360320154,
+      "change_percentage_points": -58.293953987488514,
+      "state": "Lower model evidence",
+      "state_changed": true,
+      "quality_accepted": true,
+      "reason": ""
+    },
+    {
+      "example": "Synthetic boundary pattern",
+      "condition": "Clipping x8",
+      "clean_score": 0.6116376242352053,
+      "score": null,
+      "change_percentage_points": null,
+      "state": "Withheld: input quality",
+      "state_changed": true,
+      "quality_accepted": false,
+      "reason": "More than 1% of samples are near full scale: possible clipping."
+    },
+    {
+      "example": "Synthetic boundary pattern",
+      "condition": "Dropout 25%",
+      "clean_score": 0.6116376242352053,
+      "score": null,
+      "change_percentage_points": null,
+      "state": "Withheld: input quality",
+      "state_changed": true,
+      "quality_accepted": false,
+      "reason": "At least 20% of short windows are flat: possible signal loss."
+    },
+    {
+      "example": "Synthetic boundary pattern",
+      "condition": "Dropout 50%",
+      "clean_score": 0.6116376242352053,
+      "score": null,
+      "change_percentage_points": null,
+      "state": "Withheld: input quality",
+      "state_changed": true,
+      "quality_accepted": false,
+      "reason": "At least 20% of short windows are flat: possible signal loss."
+    },
+    {
+      "example": "Synthetic boundary pattern",
+      "condition": "Silence",
+      "clean_score": 0.6116376242352053,
+      "score": null,
+      "change_percentage_points": null,
+      "state": "Withheld: input quality",
+      "state_changed": true,
+      "quality_accepted": false,
+      "reason": "No usable variation: silence, a constant signal or very low level. At least 20% of short windows are flat: possible signal loss."
+    },
+    {
+      "example": "Synthetic boundary pattern",
+      "condition": "Constant DC",
+      "clean_score": 0.6116376242352053,
+      "score": null,
+      "change_percentage_points": null,
+      "state": "Withheld: input quality",
+      "state_changed": true,
+      "quality_accepted": false,
+      "reason": "No usable variation: silence, a constant signal or very low level. At least 20% of short windows are flat: possible signal loss."
+    }
+  ]
+}

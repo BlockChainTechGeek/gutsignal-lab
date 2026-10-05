@@ -60,6 +60,20 @@ def probability_metrics(y_true: np.ndarray, probability: np.ndarray) -> dict[str
     }
 
 
+def class_balance_reference(positive_count: int, negative_count: int) -> dict[str, float]:
+    """A count-derived constant-positive reference, not a fitted model."""
+    if positive_count <= 0 or negative_count <= 0:
+        raise ValueError("The reference requires examples from both classes")
+    prevalence = positive_count / (positive_count + negative_count)
+    return {
+        "accuracy": prevalence,
+        "balanced_accuracy": 0.5,
+        "f1": 2 * positive_count / (2 * positive_count + negative_count),
+        "event_recall": 1.0,
+        "non_event_recall": 0.0,
+    }
+
+
 def uncertainty_band_metrics(
     y_true: np.ndarray,
     probability: np.ndarray,

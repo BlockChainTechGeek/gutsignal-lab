@@ -35,10 +35,37 @@ system, or reconstruction of Suna's proprietary technology.
 The baseline, interactive prototype, exploratory research, and public deployment
 are complete.
 
+## Engineering extension: robustness workbench
+
+The **Robustness lab** lets a reviewer introduce controlled noise, gain changes,
+clipping, missing signal, silence and constant DC into the three generated audio
+examples. It compares scores and withholds inference when explicit quality checks
+fail. It is a failure investigation, not a claim of device or clinical robustness.
+
+The reproducible matrix covers all 33 example/condition combinations. Quality
+checks withhold 15; five accepted cases change their displayed evidence state.
+The largest accepted score shift is 95.4 percentage points under added noise.
+This exposes a remaining weakness: ordinary-looking signal quality does not
+guarantee a reliable model output. Gain changes of -12 and -30 dB leave these
+example scores effectively unchanged, as expected from peak normalisation.
+
+Uploads are decoded in memory with format, size, mono-channel, sample-rate,
+duration and finite-value checks. The app does not write, log or cache uploaded
+audio. Processing still takes place on the hosted server; this is not local-only
+processing or a guarantee about the hosting provider's retention practices.
+Use generated examples, not personal health recordings.
+
+See [the engineering note](docs/ENGINEERING_NOTE.md) for thresholds, findings,
+reproduction steps and limitations. The original model and grouped metrics have
+not been replaced or improved by these demonstration experiments.
+
 ## Current result
 
 The headline five-fold participant-grouped evaluation produces 0.945 average
-precision, 0.825 ROC-AUC, and 0.896 F1. Random-recording validation is stronger,
+precision, 0.825 ROC-AUC, and 0.896 F1. The dataset is event-heavy: always
+predicting an event would produce 0.888 F1, so F1 alone overstates the useful
+result. Balanced accuracy is 0.683 versus 0.500 for that constant prediction.
+The Evidence tab makes this comparison visible. Random-recording validation is stronger,
 so the project treats the grouped result as the more defensible estimate and
 makes the generalisation gap visible.
 
@@ -66,8 +93,10 @@ the attributed public research dataset.
    ambiguous synthetic patterns.
 2. Open **Evidence** to see why participant-grouped validation is treated as
    the headline result.
-3. Open **How it works** for the four-stage signal-to-insight pipeline.
-4. Finish with **Limits & next steps** for the claims the prototype refuses to
+3. Open **Robustness lab**. Compare the original with noise, then silence or
+   clipping. Inspect why a result is withheld and which failures remain.
+4. Open **How it works** for the four-stage signal-to-insight pipeline.
+5. Finish with **Limits & next steps** for the claims the prototype refuses to
    make and the findings from four exploratory participants.
 
 The interface is intentionally demo-first. It should be understandable without
@@ -83,6 +112,7 @@ PYTHONPATH=src uv run python scripts/build_features.py /path/to/data
 PYTHONPATH=src uv run python scripts/train_baseline.py artifacts/features.csv
 uv run python scripts/error_analysis.py
 uv run python scripts/prepare_demo_samples.py
+uv run python scripts/evaluate_robustness.py
 uv run streamlit run streamlit_app.py
 ```
 
@@ -107,6 +137,7 @@ demo clips are sufficient to run the reviewer experience.
 - `scripts/`: reproducible data, training and analysis commands
 - `docs/MODEL_CARD.md`: intended use, evaluation and limitations
 - `docs/TECHNICAL_REPORT.md`: technical and product narrative
+- `docs/ENGINEERING_NOTE.md`: input quality, perturbations and failure investigation
 - `docs/INTERVIEW_GUIDE.md`: lightweight potential-user research
 - `docs/DATA_AND_ATTRIBUTION.md`: provenance, licence and grouping caveat
 - `docs/PUBLISHING_CHECKLIST.md`: repository and deployment handoff

@@ -65,6 +65,12 @@ training and evaluation.
 
 ## Uncertainty range
 
+F1 needs context because 1,283 of the 1,606 clips contain events. Always
+predicting an event would produce 0.888 F1 and 0.799 accuracy, but zero recall
+for non-event clips. The grouped model's balanced accuracy is 0.683 compared
+with 0.500 for that constant reference. The UI calculates this reference from
+the reported counts; it is not a new evaluation run.
+
 The interface labels probabilities from 0.35 up to, but not including, 0.65 as
 uncertain. Applied to participant-grouped out-of-fold predictions, this range:
 
@@ -77,6 +83,20 @@ Balanced accuracy on the decided subset is 0.685, compared with 0.683 across all
 recordings. The overall accuracy increase partly reflects class imbalance, so the
 result should be interpreted as evidence that the band concentrates some errors,
 not as proof of calibration, clinical safety, or reliable abstention on new data.
+
+## Engineering input gate
+
+The deployed interface now checks WAV content, size, mono channels, sample rate,
+duration and finite samples before inference. Raw-signal heuristics withhold
+results for near-silence, constant signals, strong clipping or flat segments.
+These gates are not clinically validated. Their effect on dataset-level
+performance or rejection rates has not been measured, so the headline evaluation
+above still describes the original ungated model at a fixed threshold.
+
+The robustness workbench tests 33 generated-audio conditions, not new participant
+data. Noise changes some accepted scores substantially; passing the checks is
+not an out-of-distribution guarantee. See `ENGINEERING_NOTE.md` for the complete
+matrix, thresholds and limitations.
 
 ## Intended uses
 

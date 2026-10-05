@@ -103,6 +103,13 @@ privately.
 
 ## What I would test next
 
+An engineering extension now adds bounded in-memory decoding, raw-input quality
+checks and a deterministic robustness workbench. Across 33 generated-audio cases,
+15 results are withheld and five accepted cases change evidence state. Noise
+can change an accepted score by 95.4 percentage points, so quality gating does
+not solve model sensitivity. These generated examples are not additional
+evaluation data. See `ENGINEERING_NOTE.md` for full results and limitations.
+
 1. Confirm the participant identifier and use a locked, external participant
    holdout.
 2. Collect broader data across devices, placements, body positions, and daily

@@ -13,7 +13,17 @@ BANDPASS_HIGH_HZ = 2_000.0
 
 def load_and_preprocess(path: Path) -> tuple[np.ndarray, int]:
     signal, sample_rate = librosa.load(path, sr=TARGET_SAMPLE_RATE, mono=True)
-    signal = signal.astype(np.float64, copy=False)
+    return preprocess_signal(signal, sample_rate)
+
+
+def preprocess_signal(signal: np.ndarray, sample_rate: int) -> tuple[np.ndarray, int]:
+    """Shared training/inference preprocessing. Do not mutate the input array."""
+    signal = np.asarray(signal, dtype=np.float64).copy()
+    if signal.ndim != 1 or signal.size < 64 or not np.isfinite(signal).all():
+        raise ValueError("Expected a finite mono signal with at least 64 samples")
+    if sample_rate != TARGET_SAMPLE_RATE:
+        signal = librosa.resample(signal, orig_sr=sample_rate, target_sr=TARGET_SAMPLE_RATE)
+    sample_rate = TARGET_SAMPLE_RATE
     signal -= np.mean(signal)
 
     nyquist = sample_rate / 2
@@ -49,6 +59,11 @@ def _band_energy(power: np.ndarray, frequencies: np.ndarray, low: float, high: f
 
 def extract_features(path: Path) -> dict[str, float]:
     signal, sample_rate = load_and_preprocess(path)
+    return features_from_preprocessed(signal, sample_rate)
+
+
+def features_from_preprocessed(signal: np.ndarray, sample_rate: int) -> dict[str, float]:
+    """Extract the existing feature schema from an already prepared signal."""
     n_fft = 512
     hop_length = 128
 

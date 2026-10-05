@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-import tempfile
 from pathlib import Path
 
 import joblib
@@ -11,13 +10,18 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-from gutsignal.features import extract_features, load_and_preprocess
+from gutsignal.audio import AudioInputError, decode_wav, encode_wav
+from gutsignal.features import preprocess_signal
+from gutsignal.inference import evidence_state, predict_clip
+from gutsignal.modeling import class_balance_reference
+from gutsignal.robustness import perturb
 
 ROOT = Path(__file__).parent
 MODEL_PATH = ROOT / "artifacts" / "model" / "baseline.joblib"
 METRICS_PATH = ROOT / "artifacts" / "model" / "metrics.json"
 EVIDENCE_IMAGE_PATH = ROOT / "artifacts" / "report" / "model_evidence.png"
 DEMO_SAMPLES_PATH = ROOT / "demo_samples"
+ROBUSTNESS_PATH = ROOT / "artifacts" / "report" / "robustness.json"
 
 
 st.set_page_config(page_title="GutSignal Lab", page_icon="〰️", layout="wide")
@@ -139,20 +143,13 @@ def spectrogram_chart(signal: np.ndarray, sample_rate: int) -> go.Figure:
 
 
 def interpretation(probability: float) -> tuple[str, str]:
-    if probability < 0.35:
-        return (
-            "Lower model evidence",
-            "The baseline found less evidence of an annotated bowel-sound event in this clip.",
-        )
-    if probability < 0.65:
-        return (
-            "Uncertain",
-            "The result sits near the decision boundary and should not be treated as a confident detection.",
-        )
-    return (
-        "Higher model evidence",
-        "The baseline found more evidence of a sound pattern resembling expert-annotated events in the public dataset.",
-    )
+    state = evidence_state(probability)
+    explanations = {
+        "Lower model evidence": "The baseline found less evidence of an annotated bowel-sound event in this clip.",
+        "Uncertain": "The result sits near the decision boundary and should not be treated as a confident detection.",
+        "Higher model evidence": "The baseline found more evidence of a sound pattern resembling expert-annotated events in the public dataset.",
+    }
+    return state, explanations[state]
 
 
 hero, snapshot = st.columns([1.45, 1], gap="large")
@@ -181,8 +178,8 @@ st.info(
     "diagnose a condition, or reproduce Suna Health's technology."
 )
 
-demo_tab, evidence_tab, method_tab, limits_tab = st.tabs(
-    ["Try the prototype", "Evidence", "How it works", "Limits & next steps"]
+demo_tab, robustness_tab, evidence_tab, method_tab, limits_tab = st.tabs(
+    ["Try the prototype", "Robustness lab", "Evidence", "How it works", "Limits & next steps"]
 )
 
 with demo_tab:
@@ -196,7 +193,7 @@ with demo_tab:
     mode = st.radio(
         "Choose an input", ["Curated synthetic example", "Upload a WAV"], horizontal=True
     )
-    selected_path: Path | None = None
+    payload: bytes | None = None
     example_label: str | None = None
 
     if mode == "Curated synthetic example":
@@ -204,38 +201,155 @@ with demo_tab:
         example_name = st.selectbox("Example", list(manifest))
         example = manifest[example_name]
         selected_path = DEMO_SAMPLES_PATH / example["file"]
+        payload = selected_path.read_bytes()
         example_label = example["example_label"]
         st.caption(example["purpose"])
-        st.audio(selected_path.read_bytes(), format="audio/wav")
+        st.audio(payload, format="audio/wav")
     else:
         uploaded = st.file_uploader("Upload a two-second WAV recording", type=["wav"])
-        st.caption("Files are processed only for this demonstration session.")
-        if uploaded is not None:
-            with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as temporary:
-                temporary.write(uploaded.getbuffer())
-                selected_path = Path(temporary.name)
-
-    if selected_path is not None:
-        signal, sample_rate = load_and_preprocess(selected_path)
-        feature_row = pd.DataFrame([extract_features(selected_path)])
-        bundle = load_model_bundle()
-        probability = float(bundle["pipeline"].predict_proba(feature_row)[0, 1])
-
-        label, explanation = interpretation(probability)
-        left, right = st.columns([1, 2])
-        left.metric("Model evidence", f"{probability:.1%}")
-        right.markdown(f"### {label}\n{explanation}")
-        if example_label is not None:
-            st.caption(f"Synthetic pattern description: **{example_label}**")
-
-        st.plotly_chart(waveform_chart(signal, sample_rate), width="stretch")
-        st.plotly_chart(spectrogram_chart(signal, sample_rate), width="stretch")
         st.caption(
-            "The probability is a research-model output, not a health score. Microphone type, placement, "
-            "movement, clothing, speech and background noise may materially affect it."
+            "Two-second mono WAV, maximum 8 MiB. Processing runs on the hosted server, "
+            "not on your device. This app does not save, log or cache uploaded audio; "
+            "Streamlit holds it in session memory. Do not upload personal health recordings."
         )
-        if mode == "Upload a WAV" and selected_path.parent == Path(tempfile.gettempdir()):
-            selected_path.unlink(missing_ok=True)
+        if uploaded is not None:
+            payload = uploaded.getvalue()
+
+    if payload is not None:
+        try:
+            clip = decode_wav(payload)
+            result = predict_clip(clip, load_model_bundle())
+            if result.probability is None:
+                st.warning("Result withheld: input quality. " + " ".join(result.quality.reasons))
+            else:
+                signal, sample_rate = preprocess_signal(clip.signal, clip.sample_rate)
+                label, explanation = interpretation(result.probability)
+                left, right = st.columns([1, 2])
+                left.metric("Model evidence", f"{result.probability:.1%}")
+                right.markdown(f"### {label}\n{explanation}")
+                if example_label is not None:
+                    st.caption(f"Synthetic pattern description: **{example_label}**")
+                st.plotly_chart(waveform_chart(signal, sample_rate), width="stretch")
+                st.plotly_chart(spectrogram_chart(signal, sample_rate), width="stretch")
+                st.caption(
+                    "The probability is a research-model output, not a health score. Passing the "
+                    "input checks does not establish that this is abdominal audio or that it "
+                    "resembles the training data."
+                )
+        except AudioInputError as error:
+            st.warning(str(error))
+        except (ValueError, RuntimeError):
+            st.error("No result: audio processing or model compatibility check failed.")
+
+with robustness_tab:
+    st.subheader("What happens when the recording changes?")
+    st.write(
+        "A confident score can still be wrong. Change a generated recording and compare the "
+        "model's response. Basic quality checks withhold a result for silence, strong clipping "
+        "or flat segments. They do not detect every kind of noise or movement."
+    )
+    st.caption(
+        "Generated, non-human audio only. This is a deterministic engineering experiment, "
+        "not new participant validation, a device simulation or an accuracy benchmark."
+    )
+    controls, comparison = st.columns([1, 2], gap="large")
+    with controls:
+        lab_name = st.selectbox("Workbench example", list(load_demo_manifest()))
+        kind = st.selectbox(
+            "Introduce a disturbance",
+            ["Noise", "Gain", "Clipping", "Dropout", "Silence", "Constant DC", "Unchanged"],
+        )
+        if kind == "Noise":
+            level = st.slider("Signal-to-noise ratio (dB)", 0, 40, 10, 5)
+            st.caption("Lower means stronger noise relative to the signal.")
+        elif kind == "Gain":
+            level = st.slider("Gain change (dB)", -60, 0, -12, 3)
+        elif kind == "Clipping":
+            level = st.slider("Gain before clipping", 1, 20, 8)
+        elif kind == "Dropout":
+            level = st.slider("Missing signal (%)", 0, 100, 25, 5)
+        else:
+            level = 0
+    lab_file = DEMO_SAMPLES_PATH / load_demo_manifest()[lab_name]["file"]
+    clean_clip = decode_wav(lab_file.read_bytes())
+    changed_clip = perturb(clean_clip, kind, float(level))
+    clean_result = predict_clip(clean_clip, load_model_bundle())
+    changed_result = predict_clip(changed_clip, load_model_bundle())
+    with comparison:
+        original, changed = st.columns(2)
+        original.metric("Original score", f"{clean_result.probability:.1%}")
+        original.caption(clean_result.state)
+        if changed_result.probability is None:
+            changed.metric("Changed score", "Withheld")
+            st.warning(" ".join(changed_result.quality.reasons))
+        else:
+            shift = (changed_result.probability - clean_result.probability) * 100
+            changed.metric(
+                "Changed score",
+                f"{changed_result.probability:.1%}",
+                delta=f"{shift:+.1f} percentage points",
+                delta_color="off",
+            )
+            changed.caption(changed_result.state)
+            if changed_result.state != clean_result.state:
+                st.warning("The displayed evidence state changed under this disturbance.")
+        st.audio(encode_wav(changed_clip), format="audio/wav")
+        time = np.arange(clean_clip.signal.size) / clean_clip.sample_rate
+        overlay = go.Figure()
+        overlay.add_scatter(x=time, y=clean_clip.signal, name="Original", line={"color": "#17342c"})
+        overlay.add_scatter(
+            x=time,
+            y=changed_clip.signal,
+            name="Changed",
+            opacity=0.65,
+            line={"color": "#ff7e68"},
+        )
+        overlay.update_layout(
+            height=260,
+            template="plotly_white",
+            xaxis_title="Time (seconds)",
+            yaxis_title="Raw amplitude",
+            margin={"l": 20, "r": 20, "t": 20, "b": 30},
+        )
+        st.plotly_chart(overlay, width="stretch")
+    with st.expander("Inspect the input checks and their limits"):
+        st.write(
+            "Checks run before peak normalisation: duration 1.9 to 2.1 seconds; centred RMS "
+            "at least 0.00001; no more than 1% of samples at magnitude 0.999 or above; "
+            "fewer than 20% flat 20 ms windows. These manually chosen thresholds are "
+            "engineering heuristics, not calibrated quality or out-of-distribution detectors."
+        )
+        st.write(
+            "Peak normalisation should make gain changes mostly disappear. Added noise changes "
+            "spectral features and can move the score even when every quality check passes. "
+            "That remaining failure mode is deliberately visible here."
+        )
+    st.subheader("The reproducible stress matrix")
+    report = json.loads(ROBUSTNESS_PATH.read_text())
+    summary = report["summary"]
+    matrix_columns = st.columns(3)
+    matrix_columns[0].metric("Generated test cases", str(summary["cases"]))
+    matrix_columns[1].metric("Withheld by quality checks", str(summary["withheld"]))
+    matrix_columns[2].metric("Accepted state changes", str(summary["accepted_state_changes"]))
+    matrix = pd.DataFrame(report["cases"])
+    visible = matrix[["example", "condition", "score", "change_percentage_points", "state"]]
+    st.dataframe(
+        visible.style.format(
+            {"score": "{:.1%}", "change_percentage_points": "{:+.1f}"}, na_rep="Withheld"
+        ),
+        hide_index=True,
+        width="stretch",
+    )
+    st.caption(
+        "All 11 conditions are reported for all three examples, including failures. State changes "
+        "are sensitivity observations, not labelled errors. Original grouped metrics are unchanged."
+    )
+    st.download_button(
+        "Download stress matrix (JSON)",
+        ROBUSTNESS_PATH.read_bytes(),
+        file_name="GutSignal_Robustness.json",
+        mime="application/json",
+    )
 
 with evidence_tab:
     metrics = load_metrics()
@@ -243,7 +357,7 @@ with evidence_tab:
     random = metrics["random_recording_cross_validation"]
     uncertainty = metrics["uncertainty_band_evaluation"]
 
-    st.subheader("The less flattering result is the headline result")
+    st.subheader("Participant-grouped validation")
     st.write(
         "Recordings from the same inferred participant group stay together during validation. "
         "This is harder than randomly mixing clips and gives a more realistic test of whether "
@@ -290,6 +404,32 @@ with evidence_tab:
     st.warning(
         "Randomly mixing recordings produced higher scores, but that easier test can overestimate "
         "real-world performance. The participant-grouped result above is the more cautious estimate."
+    )
+
+    st.subheader("Why F1 needs a reference")
+    counts = metrics["dataset"]
+    reference = class_balance_reference(counts["event_positive"], counts["event_negative"])
+    reference_frame = pd.DataFrame(
+        {
+            "Method": ["Always predict event", "Participant-grouped model"],
+            "Accuracy": [reference["accuracy"], grouped["accuracy"]],
+            "Balanced accuracy": [reference["balanced_accuracy"], grouped["balanced_accuracy"]],
+            "F1": [reference["f1"], grouped["f1"]],
+        }
+    )
+    st.dataframe(
+        reference_frame.style.format(
+            {"Accuracy": "{:.3f}", "Balanced accuracy": "{:.3f}", "F1": "{:.3f}"}
+        ),
+        hide_index=True,
+        width="stretch",
+    )
+    st.caption(
+        f"{counts['event_positive']:,} of {counts['recordings']:,} clips contain events. "
+        f"Always predicting event gives F1 {reference['f1']:.3f}, close to the model's "
+        f"{grouped['f1']:.3f}, but detects no non-event clips. The grouped model's balanced "
+        "accuracy is more informative here. This reference is computed from the reported "
+        "class counts, not from a new training or evaluation run."
     )
 
     st.subheader('When the model is allowed to say "uncertain"')
@@ -390,7 +530,8 @@ with limits_tab:
     st.markdown(
         """
         1. Validate on entirely new participants and recording sessions.
-        2. Stress-test motion, speech, clothing friction and imperfect sensor contact.
+        2. Extend the generated-audio stress tests to labelled participant recordings, real motion,
+           speech, clothing friction and imperfect sensor contact.
         3. Compare performance across devices and skin-placement variation.
         4. Confirm the uncertainty range on an external participant holdout and define when the model
            must withhold a result.
@@ -447,6 +588,6 @@ with limits_tab:
 
 st.markdown(
     '<div class="footer-note">Portfolio project. '
-    "Public data only · non-diagnostic · September 2026</div>",
+    "Public data and generated examples · non-diagnostic · October 2026</div>",
     unsafe_allow_html=True,
 )
